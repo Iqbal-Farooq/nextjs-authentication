@@ -17,11 +17,11 @@ function ProfileForm(props) {
     <form className={classes.form} onSubmit={submitHandler}>
       <div className={classes.control}>
         <label htmlFor='new-password'>New Password</label>
-        <input ref={oldPasswordRef} type='password' id='new-password' />
+        <input ref={newpasswordRef} type='password' id='new-password' />
       </div>
       <div className={classes.control}>
         <label htmlFor='old-password'>Old Password</label>
-        <input ref={newpasswordRef} type='password' id='old-password' />
+        <input ref={oldPasswordRef}  type='password' id='old-password' />
       </div>
       <div className={classes.action}>
         <button>Change Password</button>

@@ -12,31 +12,26 @@ async function handler(req, res) {
   }
   const userEmail = session.user.email;
   const { oldPassword, newPassword } = req.body;
-
   const client = await connectToDatabase();
   const usersCollection = client.db().collection('users');
-
   const user = await usersCollection.findOne({ email: userEmail });
   if (!user) {
     client.close();
     return res.status(404).json({ message: 'User Not Found' });
   }
-
   const currentPassword = user.password;
-  const passwordsAreEqual = await verifyPassword(oldPassword, currentPassword); // Added `await`
+  const passwordsAreEqual = await verifyPassword(oldPassword, currentPassword); 
   if (!passwordsAreEqual) {
     client.close();
     return res.status(403).json({ message: "You are authenticated but not authorized" });
   }
-
   const hashedPassword = await hashPassword(newPassword); 
   const result = await usersCollection.updateOne(
     { email: userEmail },
     { $set: { password: hashedPassword } }
   ); 
-
   client.close();
-  return res.status(200).json({ message: "Password updated" });
+  return res.status(200).json({ message: "Password updated",status:200 });
 }
 
 export default handler;

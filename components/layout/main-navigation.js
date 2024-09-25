@@ -7,7 +7,7 @@ function MainNavigation() {
   function logoutHandler(){
     signOut()
   }
-  console.log(status)
+  // console.log(status)
   return (
     <header className={classes.header}>
       <Link href="/">

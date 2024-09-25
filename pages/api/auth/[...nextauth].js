@@ -7,14 +7,15 @@ export const authOptions ={
     session: {
         jwt: true, 
     },
+    secret:process.env.NEXTAUTH_URL_INTERNAL,
     providers: [
         CredentialsProvider({
             name: 'Credentials',
             async authorize(credentials) {
                 const client = await connectToDatabase(); 
                 const userCollection = client.db().collection('users');
-                
                 const user = await userCollection.findOne({ email: credentials.email });
+                //  console.log('user ',user )
                 if (!user) {
                     client.close();
                     throw new Error('No User Found!');

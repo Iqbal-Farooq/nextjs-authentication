@@ -1,6 +1,6 @@
 import ProfileForm from './profile-form';
 import classes from './user-profile.module.css';
-
+import { useRouter } from 'next/navigation';
 // import { getSession } from 'next-auth/react';
 // import {useEffect,useState} from 'react'
 function UserProfile() {
@@ -12,6 +12,7 @@ function UserProfile() {
   //       // redirect the user to login
   //       window.location.href='/auth'
   //     }else{
+  //       console.log('session',session)
   //       setIsLoading(false)
   //     }
   //   })
@@ -19,6 +20,7 @@ function UserProfile() {
   // if(isLoading){
   //   return <p className='center'>Loading..</p>
   // }
+  const router=useRouter()
  async function changePasswordHandler(passwordData) {
   const response= await fetch('api/user/change-password',{
     method:'PATCH',
@@ -28,7 +30,10 @@ function UserProfile() {
     }
   })
   const data=await response.json()
-  console.log(data );
+  if(data?.status==200){
+    router.replace('/verified')
+  }
+  console.log('updated password => ',data );
  }
 
   return (
